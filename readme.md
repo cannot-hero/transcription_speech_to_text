@@ -26,4 +26,4 @@
     pip install -r requirements.txt
     ```
 5. 将 mp3 文件放入`/mp3`文件夹中。
-6. 运行 **main.py**
+6. 运行 **main.py**，文本会自动生成在 output 文件夹中。
