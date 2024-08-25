@@ -17,23 +17,26 @@ def clear_output_folder(output_folder):
     else:
         os.makedirs(output_folder)  # Create the folder if it doesn't exist
 
-def convert_mp3_to_text(mp3_folder, output_folder, api_url):
+def convert_audio_to_text(mp3_folder, output_folder, api_url):
     # Clear the output folder before processing
     clear_output_folder(output_folder)
 
     # Initialize the Gradio API client
     client = Client(api_url)
 
+    # Supported file extensions
+    supported_extensions = ['.mp3', '.wav']
+
     # Iterate through all files in the MP3 folder
     for filename in os.listdir(mp3_folder):
-        if filename.endswith(".mp3"):
+        if any(filename.endswith(ext) for ext in supported_extensions):
             # Construct the file path
             file_path = os.path.join(mp3_folder, filename)
 
             # Convert the audio to text using the Gradio API
             result = client.predict(file_path, api_name="/predict")
 
-            # Construct the output TXT file path (same name as the MP3 file but in the output folder)
+            # Construct the output TXT file path (same name as the audio file but in the output folder)
             output_file_path = os.path.join(output_folder, f"{os.path.splitext(filename)[0]}.txt")
 
             # Write the result to the corresponding TXT file in the output folder with utf-8 encoding
@@ -47,4 +50,4 @@ if __name__ == '__main__':
     output_folder = "./output/"
     api_url = "https://lpinnova-whisper-model-speech-to-text2.hf.space/"
 
-    convert_mp3_to_text(mp3_folder, output_folder, api_url)
+    convert_audio_to_text(mp3_folder, output_folder, api_url)
