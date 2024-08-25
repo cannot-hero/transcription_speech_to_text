@@ -25,7 +25,7 @@ def convert_audio_to_text(mp3_folder, output_folder, api_url):
     client = Client(api_url)
 
     # Supported file extensions
-    supported_extensions = ['.mp3', '.wav']
+    supported_extensions = ['.mp3', '.wav', '.WAV']
 
     # Iterate through all files in the MP3 folder
     for filename in os.listdir(mp3_folder):
